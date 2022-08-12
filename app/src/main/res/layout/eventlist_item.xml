@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:backgroundTint="#F5F5F5"
+    android:layout_marginStart="10dp"
+    android:outlineSpotShadowColor="@color/different_black"
+    android:outlineAmbientShadowColor="@color/different_black"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="5dp"
+    app:layout_goneMarginBottom="5dp"
+    android:layout_marginBottom="0.5dp"
+    app:cardCornerRadius="12dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/EventListDay"
+            android:hint="--"
+            android:textColorHint="@color/different_black"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#364F6B"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/EventListMonth"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="---"
+            android:textColorHint="@color/different_black"
+            android:textColor="#364F6B"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginStart="13dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EventListDay"/>
+
+        <TextView
+            android:layout_width="1.5dp"
+            android:layout_height="70dp"
+            android:id="@+id/EventListLine"
+            android:background="@color/different_black"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/EventListMonth"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/EventListName"
+            android:hint="Induatrial Meet"
+            android:textColorHint="@color/different_black"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#364F6B"
+            android:gravity="start"
+            android:textSize="16sp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@+id/EventListLine"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:id="@+id/EventListLocationImg"
+            android:src="@drawable/location"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toEndOf="@id/EventListLine"
+            app:layout_constraintTop_toTopOf="@id/EventListLocation"/>
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/EventListLocation"
+            android:hint="Caracas,Venezuela dfkhjfgdj sgjlsd"
+            android:textColorHint="@color/different_black"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/different_black"
+            android:gravity="start"
+            android:textSize="12sp"
+            android:paddingTop="5dp"
+            android:paddingStart="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/EventListLocationImg"
+            app:layout_constraintTop_toBottomOf="@+id/EventListDay"/>
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="35dp"
+            android:id="@+id/EventListLocationLine"
+            android:background="@color/different_black"
+            app:layout_constraintStart_toEndOf="@id/EventListLocation"
+            app:layout_constraintTop_toBottomOf="@id/EventListName"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/EventListTime"
+            android:hint="--:--"
+            android:textColorHint="@color/different_black"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/different_black"
+            android:gravity="start"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/EventListLocationLine"
+            app:layout_constraintBottom_toBottomOf="@id/EventListLocationLine"
+            app:layout_constraintTop_toTopOf="@id/EventListLocationLine"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:id="@+id/EventListImage"
+            android:src="@drawable/sanjeev_sharma_pic"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EventListViewDeatil"
+            app:layout_constraintTop_toBottomOf="@id/EventListImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/different_black"
+            android:text="View Details"
+            android:textSize="9sp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.cardview.widget.CardView>

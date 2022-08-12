@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".EventDetail">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:id="@+id/EventDetailImage"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@color/different_black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/eventDetailCV"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="+Add Image"
+            android:textColor="@color/white"
+            android:layout_marginEnd="30dp"
+            android:textSize="16sp"/>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventDetailCV"
+            android:background="#F5F5F5"
+            android:backgroundTint="#F5F5F5"
+            android:outlineSpotShadowColor="#F5F5F5"
+            android:layout_marginTop="220dp"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nameoftheeventText"
+                    android:text="Name of Event"
+                    android:fontFamily="@font/inria_sans_regular"
+                    android:textSize="16dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#364F6B"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/EventDetailName"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:paddingStart="15dp"
+                    android:backgroundTint="@color/different_black"
+                    android:textColor="@color/black"
+                    android:paddingEnd="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/nameoftheeventText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/locationoftheeventText"
+                    android:text="Location"
+                    android:fontFamily="@font/inria_sans_regular"
+                    android:textSize="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#364F6B"
+                    app:layout_constraintTop_toBottomOf="@+id/EventDetailName"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/EventDetailLocation"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:paddingStart="40dp"
+                    android:backgroundTint="@color/different_black"
+                    android:textColor="@color/black"
+                    android:paddingEnd="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/locationoftheeventText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/location"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/locationoftheeventText"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/descriptionoftheeventText"
+                    android:text="Description"
+                    android:fontFamily="@font/inria_sans_regular"
+                    android:textSize="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="30dp"
+                    android:textColor="#364F6B"
+                    app:layout_constraintTop_toBottomOf="@+id/EventDetailLocation"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/EventDetailDescription"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:paddingStart="15dp"
+                    android:backgroundTint="@color/different_black"
+                    android:textColor="@color/black"
+                    android:orientation="horizontal"
+                    android:paddingEnd="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/descriptionoftheeventText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EventDetailDateCV"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/EventDetailDescription"
+                    android:layout_marginTop="40dp"
+                    app:cardCornerRadius="12dp"
+                    android:background="@color/grey"
+                    android:backgroundTint="@color/grey"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:id="@+id/EventDeatilEditDateImg"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:scaleType="center"
+                            android:src="@drawable/editdate"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            app:cardCornerRadius="12dp"
+                            android:backgroundTint="@color/different_black"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/EventDeatilEditDateImg">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:id="@+id/EventDetailDate"
+                                    android:hint="--"
+                                    android:textColorHint="@color/white"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:textColor="@color/white"
+                                    android:textSize="18sp"
+                                    android:gravity="center"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_marginTop="10dp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:id="@+id/EventDetailMonth"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:hint="---"
+                                    android:textColorHint="@color/white"
+                                    android:textColor="@color/white"
+                                    android:gravity="center"
+                                    android:textSize="18sp"
+                                    android:layout_marginStart="22dp"
+                                    android:layout_marginBottom="10dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/EventDetailDate"/>
+
+                                <TextView
+                                    android:layout_width="1.5dp"
+                                    android:layout_height="50dp"
+                                    android:id="@+id/EventrandomLine"
+                                    android:background="@color/white"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginStart="15dp"
+                                    app:layout_constraintStart_toEndOf="@+id/EventDetailMonth"
+                                    app:layout_constraintTop_toTopOf="parent"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:id="@+id/EventDetailWeekday"
+                                    android:hint="Week Day"
+                                    android:textColorHint="@color/white"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:textColor="@color/white"
+                                    android:gravity="center"
+                                    android:textSize="16sp"
+                                    android:layout_marginTop="10dp"
+                                    app:layout_constraintStart_toEndOf="@+id/EventrandomLine"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:id="@+id/EventDetailTime"
+                                    android:hint="--:--"
+                                    android:textColorHint="@color/white"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:textColor="@color/white"
+                                    android:gravity="center"
+                                    android:textSize="14sp"
+                                    android:layout_marginBottom="10dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/EventrandomLine"
+                                    app:layout_constraintTop_toBottomOf="@+id/EventDetailDate"/>
+
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/EventDetailPostEvent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/button_style_black_smaller"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginEnd="30dp"
+                    android:text="Post Event"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="#F5F5F5"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/EventDetailDateCV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
