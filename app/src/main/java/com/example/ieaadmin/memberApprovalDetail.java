@@ -221,7 +221,7 @@ public class memberApprovalDetail extends AppCompatActivity {
             LayoutInflater inflater = getLayoutInflater();
             View view = inflater.inflate(R.layout.rejection_reason_popup, null);
             RejectionReasonText = view.findViewById(R.id.rejectionReason_text);
-            rejectBtn = view.findViewById(R.id.rejection_btn);
+            rejectBtn  = view.findViewById(R.id.rejection_btn);
             RejectionMailDialog.setContentView(view);
             RejectionMailDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             RejectionMailDialog.show();
