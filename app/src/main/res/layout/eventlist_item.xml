@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="90dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
@@ -17,8 +17,7 @@
     app:cardCornerRadius="12dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+
         android:layout_height="match_parent">
 
         <TextView
@@ -63,15 +62,17 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:id="@+id/EventListName"
             android:hint="Induatrial Meet"
             android:textColorHint="@color/different_black"
             android:fontFamily="@font/poppins_regular"
             android:textColor="#364F6B"
+            app:layout_constraintEnd_toEndOf="parent"
             android:gravity="start"
             android:textSize="16sp"
+            android:maxLines="1"
             android:layout_marginStart="21dp"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toEndOf="@+id/EventListLine"
@@ -135,22 +136,22 @@
             android:id="@+id/EventListImage"
             android:src="@drawable/sanjeev_sharma_pic"
             android:layout_marginEnd="15dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/EventListViewDeatil"
-            app:layout_constraintTop_toBottomOf="@id/EventListImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/different_black"
-            android:text="View Details"
-            android:textSize="9sp"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/EventListViewDeatil"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/EventListImage"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:textColor="@color/different_black"-->
+<!--            android:text="View Details"-->
+<!--            android:textSize="9sp"/>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

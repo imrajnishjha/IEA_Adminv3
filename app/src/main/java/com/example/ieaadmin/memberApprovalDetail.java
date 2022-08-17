@@ -58,6 +58,7 @@ public class memberApprovalDetail extends AppCompatActivity {
     String newName, newEmail, newCompany, newIndustry, newAmountLeft, newphoneno, newProofUrl, newTurnover, newMembership, newpaymentReceiver, newgstNo;
 
     String nullString, email_address, password;
+    final String status = "unblocked";
     Uri imageUri;
     Dialog newMemberIdPassDialog, RejectionMailDialog, VerificationDialog;
     ProgressDialog approvingDialog;
@@ -221,8 +222,9 @@ public class memberApprovalDetail extends AppCompatActivity {
             LayoutInflater inflater = getLayoutInflater();
             View view = inflater.inflate(R.layout.rejection_reason_popup, null);
             RejectionReasonText = view.findViewById(R.id.rejectionReason_text);
-            rejectBtn = view.findViewById(R.id.rejection_btn);
+            rejectBtn  = view.findViewById(R.id.rejection_btn);
             RejectionMailDialog.setContentView(view);
+
             RejectionMailDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             RejectionMailDialog.show();
             rejectBtn.setOnClickListener(v1 -> {
@@ -257,7 +259,7 @@ public class memberApprovalDetail extends AppCompatActivity {
         memberDirectoryRef = memberDirectoryRoot.getReference("Registered Users");
         registrationDataRef = memberDirectoryRoot.getReference("Registration Data");
         tempRegistrationData = memberDirectoryRoot.getReference("Temp Registry").child(newEmail.replaceAll("\\.", "%7"));
-        RegistrationDataModel approveRegistrationData = new RegistrationDataModel(newMembership, newTurnover, newProofUrl, newEmail, newAmountLeft, newIndustry, newpaymentReceiver, newgstNo);
+        RegistrationDataModel approveRegistrationData = new RegistrationDataModel(newTurnover, newProofUrl, newEmail, newAmountLeft, newIndustry, newpaymentReceiver, newgstNo);
 
 
         StorageReference fileRef = defaultProfilePicReference.child("User Profile Pictures/" + newEmail + "ProfilePicture");
@@ -266,7 +268,7 @@ public class memberApprovalDetail extends AppCompatActivity {
         bitmapDefault.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] dataImg = baos.toByteArray();
         fileRef.putBytes(dataImg).addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-            memberApprovalDetailModel approveMemberDirectoryDetailModel = new memberApprovalDetailModel(nullString, newCompany, nullString, approvalDate, newEmail, nullString, newName, newphoneno, uri.toString(), nullString, newIndustry, nullString, uri.toString());
+            memberApprovalDetailModel approveMemberDirectoryDetailModel = new memberApprovalDetailModel(nullString, newCompany, nullString, approvalDate, newEmail, nullString, newName, newphoneno, uri.toString(), nullString, newIndustry, nullString, uri.toString(),newMembership,status);
             memberDirectoryRef.child(newEmail.replaceAll("\\.", "%7")).setValue(approveMemberDirectoryDetailModel);
 
             registrationDataRef.child(newEmail.replaceAll("\\.", "%7")).setValue(approveRegistrationData).addOnSuccessListener(unused -> {

@@ -20,6 +20,12 @@
         android:theme="@style/Theme.IEAApp"
         tools:targetApi="28">
         <activity
+            android:name=".MemberRenewalDetail"
+            android:exported="false" />
+        <activity
+            android:name=".MembershipRenewal"
+            android:exported="false" />
+        <activity
             android:name=".MemberNotificationDetail"
             android:exported="false" />
         <activity

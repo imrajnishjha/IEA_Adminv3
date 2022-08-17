@@ -1,14 +1,14 @@
 package com.example.ieaadmin;
 
 public class RegistrationDataModel {
-    String membershipType,turnover,payProofUrl,email,amountLeft,department,paymentReceiverName,gstno;
+    String turnover,payProofUrl,email,amountLeft,department,paymentReceiverName,gstno;
 
     RegistrationDataModel(){
 
     }
 
-    public RegistrationDataModel(String membershipType, String turnover, String payProofUrl, String email, String amountLeft, String department, String paymentReceiverName, String gstno) {
-        this.membershipType = membershipType;
+    public RegistrationDataModel( String turnover, String payProofUrl, String email, String amountLeft, String department, String paymentReceiverName, String gstno) {
+
         this.turnover = turnover;
         this.payProofUrl = payProofUrl;
         this.email = email;
@@ -27,13 +27,6 @@ public class RegistrationDataModel {
         this.gstno = gstno;
     }
 
-    public String getMembershipType() {
-        return membershipType;
-    }
-
-    public void setMembershipType(String membershipType) {
-        this.membershipType = membershipType;
-    }
 
     public String getTurnover() {
         return turnover;

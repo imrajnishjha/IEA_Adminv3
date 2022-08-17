@@ -94,6 +94,16 @@
         <entry key="..\:/Android_Apps/mainIEA/app/src/main/res/layout/activity_login.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/mainIEA/app/src/main/res/layout/activity_user_profile.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/mainIEA/app/src/main/res/layout/grievance_item.xml" value="0.21927083333333333" />
+        <entry key="..\:/Users/Administrator/Downloads/IEA_Admin/IEA_Admin/app/src/main/res/layout/activity_grievance_detail.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Administrator/Downloads/IEA_Admin/IEA_Admin/app/src/main/res/layout/confirmation_popup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_member_approval.xml" value="0.25" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_member_approval_detail.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_member_notification_detail.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_member_renewal_detail.xml" value="0.33" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_membership_renewal.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/eventlist_item.xml" value="0.33" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/member_approval_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/user_side_message_item.xml" value="0.5" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_Admin/app/src/main/res/layout/activity_explore_menu.xml" value="0.2046875" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_Admin/app/src/main/res/layout/activity_grievance.xml" value="0.2046875" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_Admin/app/src/main/res/layout/activity_main.xml" value="0.2046875" />

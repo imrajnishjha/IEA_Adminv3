@@ -117,7 +117,7 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                 confirmationDialog = new Dialog(MemberDirectoryDetail.this);
                 LayoutInflater inflater = getLayoutInflater();
                 View confirmationView = inflater.inflate(R.layout.confirmation_popup, null);
-                yesbtn = confirmationView.findViewById(R.id.yesbtn);
+                yesbtn  = confirmationView.findViewById(R.id.yesbtn);
                 nobtn = confirmationView.findViewById(R.id.nobtn);
                 confirmationDialog.setContentView(confirmationView);
                 confirmationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

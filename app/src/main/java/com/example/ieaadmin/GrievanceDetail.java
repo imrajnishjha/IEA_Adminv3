@@ -1,15 +1,21 @@
 package com.example.ieaadmin;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,19 +36,23 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import es.dmoral.toasty.Toasty;
 
 public class GrievanceDetail extends AppCompatActivity {
 
     TextView grievanceEmailTv, grievanceDepartmentTv, grievanceStatusTv, grievanceSubjectTv;
-    AppCompatButton grievanceSetStatusBtn, grievanceUpdateBtn;
+    AppCompatButton grievanceSetStatusBtn, grievanceUpdateBtn,rejectBtn;
     FirebaseDatabase solvedGrievanceRoot;
     DatabaseReference solvedGrievanceRef, rejectedGrievanceRef, ref2;
-    String grievanceEmailStr, grievanceDepartmentStr, grievanceDescriptionStr, grievanceStatusStr, grievanceSubjectStr, grievanceItemKey;
+    String grievanceEmailStr, grievanceDepartmentStr, grievanceDescriptionStr, grievanceStatusStr, grievanceSubjectStr,grievancePurlStr , grievanceItemKey;
     AutoCompleteTextView grievanceStatusField;
     CardView grievanceShareEmailCv, grievanceShareTwitterCv, grievanceShareFbCv, grievanceShareInstagramCv;
-    EditText grievanceDescriptionEdtTxt;
+    EditText grievanceDescriptionEdtTxt,RejectionReasonText;
+    ImageView grievanceIV;
+    Dialog RejectionMailDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +73,8 @@ public class GrievanceDetail extends AppCompatActivity {
         grievanceShareFbCv = findViewById(R.id.grievance_share_fb_cv);
         grievanceShareInstagramCv = findViewById(R.id.grievance_share_instagram_cv);
         grievanceUpdateBtn = findViewById(R.id.grievance_update_btn);
+        grievanceIV = findViewById(R.id.grievance_imageview);
+        RejectionMailDialog = new Dialog(this);
 
         dropdownInit();
 
@@ -77,8 +90,10 @@ public class GrievanceDetail extends AppCompatActivity {
                     grievanceDescriptionStr = Objects.requireNonNull(snapshot.child("complain").getValue()).toString();
                     grievanceStatusStr = Objects.requireNonNull(snapshot.child("status").getValue()).toString();
                     grievanceSubjectStr = Objects.requireNonNull(snapshot.child("subject").getValue()).toString();
+                    grievancePurlStr = Objects.requireNonNull(snapshot.child("purl").getValue()).toString();
 
-                    Log.d("Email string", grievanceEmailStr);
+
+                    Log.d("Email string", grievancePurlStr);
 
                     ref2 = FirebaseDatabase.getInstance().getReference().child("Unresolved Grievances").child(grievanceEmailStr.replaceAll("\\.", "%7"));
 
@@ -87,6 +102,17 @@ public class GrievanceDetail extends AppCompatActivity {
                     grievanceDepartmentTv.setText("Department: " + grievanceDepartmentStr);
                     grievanceStatusTv.setText("Status: " + grievanceStatusStr);
                     grievanceSubjectTv.setText("Subject: " + grievanceSubjectStr);
+
+                    if(!grievancePurlStr.isEmpty()){
+                        grievanceIV.setVisibility(View.VISIBLE);
+                        Glide.with(getApplicationContext())
+                                .load(grievancePurlStr)
+                                .placeholder(R.drawable.iea_logo)
+                                .error(R.drawable.iea_logo)
+                                .into(grievanceIV);
+                    }
+
+
 
                     switch (grievanceStatusStr) {
                         case "On Progress":
@@ -113,7 +139,7 @@ public class GrievanceDetail extends AppCompatActivity {
         });
 
         grievanceSetStatusBtn.setOnClickListener(view -> {
-            boolean sendNotification = false;
+            AtomicBoolean sendNotification = new AtomicBoolean(false);
 
             if (grievanceStatusField.getText().toString().equals("On Progress") && !grievanceStatusStr.equals("On Progress")) {
                 HashMap grievanceStatusHash = new HashMap();
@@ -122,7 +148,7 @@ public class GrievanceDetail extends AppCompatActivity {
                 ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
                 ref2.child(grievanceItemKey).updateChildren(grievanceStatusHash);
 
-                sendNotification = true;
+                sendNotification.set(true);
 
                 solvedGrievanceRoot = FirebaseDatabase.getInstance();
                 solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
@@ -136,7 +162,7 @@ public class GrievanceDetail extends AppCompatActivity {
                 ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
                 ref2.child(grievanceItemKey).updateChildren(grievanceStatusHash);
 
-                sendNotification = true;
+                sendNotification.set(true);
 
                 solvedGrievanceRoot = FirebaseDatabase.getInstance();
                 solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
@@ -144,29 +170,50 @@ public class GrievanceDetail extends AppCompatActivity {
                 solvedGrievanceRef.removeValue();
                 Log.d("On progress", "Under Review working");
             } else if (grievanceStatusField.getText().toString().equals("Rejected") && !grievanceStatusStr.equals("Rejected")) {
-                HashMap grievanceStatusHash = new HashMap();
-                grievanceStatusHash.put("status", "Rejected");
+                LayoutInflater inflater = getLayoutInflater();
+                @SuppressLint("InflateParams") View v = inflater.inflate(R.layout.rejection_reason_popup, null);
+                RejectionReasonText = v.findViewById(R.id.rejectionReason_text);
+                rejectBtn = v.findViewById(R.id.rejection_btn);
+                RejectionMailDialog.setContentView(v);
+                RejectionMailDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                RejectionMailDialog.show();
+                rejectBtn.setOnClickListener(v1 -> {
+                    if (!RejectionReasonText.getText().toString().isEmpty()) {
+                        String rejectionReason = RejectionReasonText.getText().toString();
+                        HashMap grievanceStatusHash = new HashMap();
+                        grievanceStatusHash.put("status", "Rejected");
 
-                ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
-                ref2.child(grievanceItemKey).updateChildren(grievanceStatusHash);
+                        ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
+                        ref2.child(grievanceItemKey).updateChildren(grievanceStatusHash);
+                        RejectionMailDialog.dismiss();
 
-                finish();
+                        finish();
 
-                sendNotification = true;
+                        sendNotification.set(true);
 
-                DatabaseReference rejectedGrievanceAddRef = FirebaseDatabase.getInstance().getReference("Rejected Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
-                        .child(grievanceItemKey);
-                GrievanceModel solvedModel = new GrievanceModel(grievanceDescriptionStr, grievanceDepartmentStr, grievanceEmailStr, "solved");
-                rejectedGrievanceAddRef.setValue(solvedModel);
+                        DatabaseReference rejectedGrievanceAddRef = FirebaseDatabase.getInstance().getReference("Rejected Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
+                                .child(grievanceItemKey);
+                        GrievanceModel solvedModel = new GrievanceModel(grievanceDescriptionStr, grievanceDepartmentStr, grievanceEmailStr, "solved");
+                        rejectedGrievanceAddRef.setValue(solvedModel);
 
-                solvedGrievanceRoot = FirebaseDatabase.getInstance();
-                solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
-                        .child(grievanceItemKey);
-                solvedGrievanceRef.removeValue();
-                Log.d("On progress", "Rejected working");
+                        solvedGrievanceRoot = FirebaseDatabase.getInstance();
+                        solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
+                                .child(grievanceItemKey);
+                        solvedGrievanceRef.removeValue();
+                        Log.d("On progress", "Rejected working");
 
-                rejectedGrievanceRef = solvedGrievanceRoot.getReference("Unsolved Grievances").child(grievanceItemKey);
-                rejectedGrievanceRef.removeValue();
+                        rejectedGrievanceRef = solvedGrievanceRoot.getReference("Unsolved Grievances").child(grievanceItemKey);
+                        rejectedGrievanceRef.removeValue();
+                        sendRejectionEmail(rejectionReason);
+
+                    } else {
+                        RejectionReasonText.setError("Reason can not be empty");
+                        RejectionReasonText.requestFocus();
+                    }
+
+
+                });
+
 //                finish();
 
                 Log.d("Unresolved", "Unresolved removal" + rejectedGrievanceRef);
@@ -177,7 +224,7 @@ public class GrievanceDetail extends AppCompatActivity {
                 ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
                 ref2.child(grievanceItemKey).updateChildren(grievanceStatusHash);
 
-                sendNotification = true;
+                sendNotification.set(true);
 
                 solvedGrievanceRoot = FirebaseDatabase.getInstance();
                 solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
@@ -186,7 +233,7 @@ public class GrievanceDetail extends AppCompatActivity {
                 solvedGrievanceRef.setValue(solvedModel);
             }
 
-            if (sendNotification) {
+            if (sendNotification.get()) {
                 Toasty.normal(this, "Status changed", R.drawable.notification_icon).show();
                 FirebaseDatabase.getInstance().getReference().child("Registered Users/" + grievanceEmailStr.replaceAll("\\.", "%7")).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -335,5 +382,27 @@ public class GrievanceDetail extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterDepartments = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, grievance_departments);
         AutoCompleteTextView autoCompleteTextViewDepartments = findViewById(R.id.grievance_status_field);
         autoCompleteTextViewDepartments.setAdapter(arrayAdapterDepartments);
+    }
+
+    private void sendRejectionEmail(String rejectionReason) {
+
+
+        Log.i("Send email", "");
+
+        String[] TO = {grievanceEmailStr};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "IEA Membership Rejected");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Your membership got rejected due to following reason \n\n" + rejectionReason);
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(GrievanceDetail.this,
+                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

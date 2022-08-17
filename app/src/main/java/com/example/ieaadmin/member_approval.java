@@ -18,7 +18,7 @@ public class member_approval extends AppCompatActivity {
 
     RecyclerView memberApprovalRecyclerView;
     member_approvalAdapter approvalAdapter;
-    AppCompatButton memberApproval_babkbtn,refer;
+    AppCompatButton memberApproval_babkbtn,refer,renewBtn;
 
 
 
@@ -34,6 +34,9 @@ public class member_approval extends AppCompatActivity {
         memberApprovalRecyclerView.setLayoutManager(wrapContentLinearLayoutManager);
         memberApproval_babkbtn = findViewById(R.id.members_approval_back_button);
         refer = findViewById(R.id.refer_btn);
+        renewBtn = findViewById(R.id.renew_btn);
+
+        renewBtn.setOnClickListener(v -> startActivity(new Intent(member_approval.this,MembershipRenewal.class)));
 
         FirebaseRecyclerOptions<UserRegistrationHelperClass> options =
                 new FirebaseRecyclerOptions.Builder<UserRegistrationHelperClass>()
@@ -52,7 +55,7 @@ public class member_approval extends AppCompatActivity {
 
     }
 
-    public class WrapContentLinearLayoutManager extends LinearLayoutManager {
+    public static class WrapContentLinearLayoutManager extends LinearLayoutManager {
         public WrapContentLinearLayoutManager(Context context) {
             super(context);
         }

@@ -1,13 +1,13 @@
 package com.example.ieaadmin;
 
 public class memberApprovalDetailModel {
-    String address, company_name, date_of_birth, date_of_membership, email, member_id, name, phone_number, purl, description, industry_type, brochure_url,company_logo;
+    String address, company_name, date_of_birth, date_of_membership, email, member_id, name, phone_number, purl, description, industry_type, brochure_url, company_logo, memberfee, status;
 
-    memberApprovalDetailModel(){
+    memberApprovalDetailModel() {
 
     }
 
-    public memberApprovalDetailModel(String address, String company_name, String date_of_birth, String date_of_membership, String email, String member_id, String name, String phone_number, String purl, String description, String industry_type, String brochure_url, String company_logo) {
+    public memberApprovalDetailModel(String address, String company_name, String date_of_birth, String date_of_membership, String email, String member_id, String name, String phone_number, String purl, String description, String industry_type, String brochure_url, String company_logo, String memberfee, String status) {
         this.address = address;
         this.company_name = company_name;
         this.date_of_birth = date_of_birth;
@@ -21,14 +21,8 @@ public class memberApprovalDetailModel {
         this.industry_type = industry_type;
         this.brochure_url = brochure_url;
         this.company_logo = company_logo;
-    }
-
-    public String getCompany_logo() {
-        return company_logo;
-    }
-
-    public void setCompany_logo(String company_logo) {
-        this.company_logo = company_logo;
+        this.memberfee = memberfee;
+        this.status = status;
     }
 
     public String getAddress() {
@@ -125,5 +119,29 @@ public class memberApprovalDetailModel {
 
     public void setBrochure_url(String brochure_url) {
         this.brochure_url = brochure_url;
+    }
+
+    public String getCompany_logo() {
+        return company_logo;
+    }
+
+    public void setCompany_logo(String company_logo) {
+        this.company_logo = company_logo;
+    }
+
+    public String getMemberfee() {
+        return memberfee;
+    }
+
+    public void setMemberfee(String memberfee) {
+        this.memberfee = memberfee;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
