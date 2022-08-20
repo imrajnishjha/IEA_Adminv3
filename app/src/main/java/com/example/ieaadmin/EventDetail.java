@@ -110,7 +110,7 @@ public class EventDetail extends AppCompatActivity {
                 Log.e("ghg", "onDateSet: "+dayOfweek );
                 EventWeekDay.setText(Weekcalculator(dayOfweek));
                 StringBuilder date = new StringBuilder();
-                date.append(i2+" "+ Monthcalculator(i1)+","+i);
+                date.append(i2+"-"+ Monthcalculator(i1)+"-"+i);
                 Eventyear = date.toString();
 
 
