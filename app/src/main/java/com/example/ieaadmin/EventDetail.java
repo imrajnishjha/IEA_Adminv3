@@ -183,9 +183,8 @@ public class EventDetail extends AppCompatActivity {
                 productFileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        DatabaseReference EventReference = FirebaseDatabase.getInstance().getReference().child("Events")
-                                .child(EventName.getText().toString());
-
+                        DatabaseReference EventReference = FirebaseDatabase.getInstance().getReference().child("Events");
+                        String key = EventReference.push().getKey();
                         String EventNameStr = EventName.getText().toString();
                         String EventLocationStr = EventLocation.getText().toString();
                         String EventDescriptionStr = EventDescription.getText().toString();
@@ -193,7 +192,7 @@ public class EventDetail extends AppCompatActivity {
                         String EventWeekStr = EventWeekDay.getText().toString();
 
                         EventDetailModel newEvent = new EventDetailModel(Eventyear,EventDescriptionStr,uri.toString(),EventNameStr.toLowerCase(),EventLocationStr,EventWeekStr,EventTimeStr,EventNameStr);
-                        EventReference.setValue(newEvent).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        EventReference.child(key).setValue(newEvent).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toasty.normal(EventDetail.this, "Event Created", R.drawable.iea_logo).show();
