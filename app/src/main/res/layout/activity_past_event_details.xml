@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F5F5F5"
     android:fillViewport="true"
+    android:layout_marginBottom="8dp"
     tools:context=".PastEventDetails">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -166,74 +167,35 @@
             app:layout_constraintTop_toBottomOf="@id/event_description"
             tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/event_members"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:text="Members"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_description_txt"
-            tools:ignore="HardcodedText" />
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/event_members_rv"
-            android:layout_width="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_members" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
             android:id="@+id/past_event_photos_rv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_members_rv"
-            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintHeight_max="300dp"
+            app:layout_constraintTop_toBottomOf="@id/event_description_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="539dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/add_event_photos_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_style_black"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="Add Event Photos"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/button_style_black"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/past_event_photos_rv"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="HardcodedText"
-            android:layout_marginBottom="8dp"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/add_event_videos_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:text="Add Event Videos"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/button_style_black"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/past_event_photos_rv"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="HardcodedText"
-            android:layout_marginBottom="8dp"/>
+            tools:ignore="HardcodedText" />
 
         <FrameLayout
             android:layout_width="match_parent"

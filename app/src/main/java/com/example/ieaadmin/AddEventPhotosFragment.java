@@ -119,7 +119,7 @@ public class AddEventPhotosFragment extends Fragment {
     private void compressImages(ViewGroup container) {
         progressDialog.setMessage("Uploading Images...");
         progressDialog.show();
-        eventUriRef = FirebaseDatabase.getInstance().getReference("Events/"+ EventItemKey+"/image_uris");
+        eventUriRef = FirebaseDatabase.getInstance().getReference("Past Events/"+ EventItemKey+"/image_uris");
         if(imagesUri.size() == 0) {
             Toast.makeText(getContext(), "Please select at least one image", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
