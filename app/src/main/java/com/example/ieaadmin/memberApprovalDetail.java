@@ -263,12 +263,14 @@ public class memberApprovalDetail extends AppCompatActivity {
 
 
         StorageReference fileRef = defaultProfilePicReference.child("User Profile Pictures/" + newEmail + "ProfilePicture");
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
         Bitmap bitmapDefault = BitmapFactory.decodeResource(getResources(), R.drawable.iea_logo);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmapDefault.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] dataImg = baos.toByteArray();
         fileRef.putBytes(dataImg).addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-            memberApprovalDetailModel approveMemberDirectoryDetailModel = new memberApprovalDetailModel(nullString, newCompany, nullString, approvalDate, newEmail, nullString, newName, newphoneno, uri.toString(), nullString, newIndustry, nullString, uri.toString(),newMembership,status);
+            memberApprovalDetailModel approveMemberDirectoryDetailModel = new memberApprovalDetailModel(nullString, newCompany, nullString, approvalDate, newEmail, nullString, newName, newphoneno, uri.toString(), nullString, newIndustry, nullString, uri.toString(),newMembership,status,String.valueOf(color));
             memberDirectoryRef.child(newEmail.replaceAll("\\.", "%7")).setValue(approveMemberDirectoryDetailModel);
 
             registrationDataRef.child(newEmail.replaceAll("\\.", "%7")).setValue(approveRegistrationData).addOnSuccessListener(unused -> {

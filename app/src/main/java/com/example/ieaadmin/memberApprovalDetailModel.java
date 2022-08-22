@@ -1,13 +1,12 @@
 package com.example.ieaadmin;
 
 public class memberApprovalDetailModel {
-    String address, company_name, date_of_birth, date_of_membership, email, member_id, name, phone_number, purl, description, industry_type, brochure_url, company_logo, memberfee, status;
+    String address, company_name, date_of_birth, date_of_membership, email, member_id, name, phone_number, purl, description, industry_type, brochure_url, company_logo, memberfee, status,color;
 
     memberApprovalDetailModel() {
-
     }
 
-    public memberApprovalDetailModel(String address, String company_name, String date_of_birth, String date_of_membership, String email, String member_id, String name, String phone_number, String purl, String description, String industry_type, String brochure_url, String company_logo, String memberfee, String status) {
+    public memberApprovalDetailModel(String address, String company_name, String date_of_birth, String date_of_membership, String email, String member_id, String name, String phone_number, String purl, String description, String industry_type, String brochure_url, String company_logo, String memberfee, String status, String color) {
         this.address = address;
         this.company_name = company_name;
         this.date_of_birth = date_of_birth;
@@ -23,6 +22,7 @@ public class memberApprovalDetailModel {
         this.company_logo = company_logo;
         this.memberfee = memberfee;
         this.status = status;
+        this.color = color;
     }
 
     public String getAddress() {
@@ -143,5 +143,13 @@ public class memberApprovalDetailModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
