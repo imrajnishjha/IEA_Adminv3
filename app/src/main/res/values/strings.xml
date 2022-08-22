@@ -168,5 +168,7 @@
         <item>Between 5cr and 10cr</item>
         <item>Above 10cr</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

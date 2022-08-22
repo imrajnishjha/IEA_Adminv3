@@ -20,6 +20,9 @@
         android:theme="@style/Theme.IEAApp"
         tools:targetApi="28">
         <activity
+            android:name=".PastEventDetails"
+            android:exported="false" />
+        <activity
             android:name=".MemberRenewalDetail"
             android:exported="false" />
         <activity

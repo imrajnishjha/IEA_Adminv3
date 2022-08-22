@@ -1,5 +1,6 @@
 package com.example.ieaadmin;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,11 @@ public class EventListAdapter extends FirebaseRecyclerAdapter<EventDetailModel,E
                 .error(R.drawable.iea_logo)
                 .into(holder.eventImg);
 
+        holder.EventListView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), PastEventDetails.class);
+            intent.putExtra("EventItemKey", getRef(position).getKey());
+            view.getContext().startActivity(intent);
+        });
 
     }
 
@@ -66,7 +72,7 @@ public class EventListAdapter extends FirebaseRecyclerAdapter<EventDetailModel,E
 
         ImageView eventImg;
         TextView day,month,name,location,time;
-        View EventlistView;
+        View EventListView;
 
 
         public EventListViewHolder(@NonNull View itemView) {
@@ -78,7 +84,7 @@ public class EventListAdapter extends FirebaseRecyclerAdapter<EventDetailModel,E
             name = (TextView) itemView.findViewById(R.id.EventListName);
             location = (TextView) itemView.findViewById(R.id.EventListLocation);
             time = (TextView) itemView.findViewById(R.id.EventListTime);
-            EventlistView= itemView;
+            EventListView= itemView;
         }
     }
 }
