@@ -26,10 +26,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.core.Context;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -39,26 +43,31 @@ import com.yalantis.ucrop.UCrop;
 import java.io.File;
 import java.sql.Time;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.Vector;
 
 import es.dmoral.toasty.Toasty;
 
 public class EventDetail extends AppCompatActivity {
 
     ImageView eventDetailImg;
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference EventReference = FirebaseDatabase.getInstance().getReference("Events");
     ActivityResultLauncher<String> mGetEventImage;
     Uri EventImageUri=null;
     CardView eventDetailEditCV;
     StorageReference storageProfilePicReference;
     EditText EventName,EventLocation,EventDescription;
-    String date="",time="",description="",lower_casetitle="",Eventyear="";
-    TextView Eventdate,Eventmonth,EventTime,EventWeekDay;
+    String date="",time="",description="",lower_casetitle="",Eventyear="",key,editType,editPurlStr,editNameStr,editLocationStr,editDescriptionStr,editDateStr,editWeekDayStr,editTimeStr;
+    TextView Eventdate,Eventmonth,EventTime,EventWeekDay,nullYearTV;
     DatePickerDialog.OnDateSetListener Datelistner;
     TimePickerDialog.OnTimeSetListener Timelistner;
     AppCompatButton EventPostBtn;
     ProgressDialog EventCreatProgress;
+    Vector<String> res;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +85,10 @@ public class EventDetail extends AppCompatActivity {
         EventPostBtn = findViewById(R.id.EventDetailPostEvent);
         EventName = findViewById(R.id.EventDetailName);
         EventLocation = findViewById(R.id.EventDetailLocation);
+        nullYearTV = findViewById(R.id.nullyearTV);
         EventDescription = findViewById(R.id.EventDetailDescription);
+        key= getIntent().getStringExtra("EventItemKey");
+        editType = getIntent().getStringExtra("edit");
 
 
         Calendar calendar = Calendar.getInstance();
@@ -85,6 +97,42 @@ public class EventDetail extends AppCompatActivity {
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
         final int hour = calendar.get(Calendar.HOUR_OF_DAY);
         final int minute = calendar.get(Calendar.MINUTE);
+
+        if(editType.equals("1")){
+            EventReference.child(key).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        editPurlStr = Objects.requireNonNull(snapshot.child("imgUrl").getValue()).toString();
+                        editNameStr = Objects.requireNonNull(snapshot.child("title").getValue()).toString();
+                        editLocationStr = Objects.requireNonNull(snapshot.child("location").getValue()).toString();
+                        editDescriptionStr = Objects.requireNonNull(snapshot.child("description").getValue()).toString();
+                        editDateStr = Objects.requireNonNull(snapshot.child("date").getValue()).toString();
+                        editWeekDayStr = Objects.requireNonNull(snapshot.child("weekday").getValue()).toString();;
+                        editTimeStr = Objects.requireNonNull(snapshot.child("time").getValue()).toString();
+                        Glide.with(getApplicationContext())
+                                .load(editPurlStr)
+                                .error(R.drawable.iea_logo)
+                                .into(eventDetailImg);
+                        EventName.setText(editNameStr);
+                        EventDescription.setText(editDescriptionStr);
+                        EventLocation.setText(editLocationStr);
+                        EventTime.setText(editTimeStr);
+                        EventWeekDay.setText(editWeekDayStr);
+                        nullYearTV.setText(editDateStr);
+                        res = splitStrings(editDateStr, '-');
+                        Eventdate.setText(res.get(0));
+                        Eventmonth.setText(res.get(1));
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
 
 
 
@@ -112,6 +160,7 @@ public class EventDetail extends AppCompatActivity {
                 StringBuilder date = new StringBuilder();
                 date.append(i2+"-"+ Monthcalculator(i1)+"-"+i);
                 Eventyear = date.toString();
+                nullYearTV.setText(Eventyear);
 
 
             }
@@ -159,13 +208,22 @@ public class EventDetail extends AppCompatActivity {
                     Toasty.normal(EventDetail.this, "Please select a Date", R.drawable.iea_logo).show();
                 } else if(EventTime.getText().toString().isEmpty()) {
                     Toasty.normal(EventDetail.this, "Please select a Time", R.drawable.iea_logo).show();
-                } else if(EventImageUri==null){
-                    Toasty.normal(EventDetail.this, "Please select an Image", R.drawable.iea_logo).show();
                 } else{
                     EventCreatProgress = new ProgressDialog(EventDetail.this);
-                    EventCreatProgress.setMessage("Event Creating...");
-                    EventCreatProgress.show();
-                    uploadProductImage(EventImageUri,EventCreatProgress);
+                    if(editType.equals("0")){
+                         if(EventImageUri==null){
+                            Toasty.normal(EventDetail.this, "Please select an Image", R.drawable.iea_logo).show();
+                        } else {
+                             uploadProductImage(EventImageUri,EventCreatProgress);
+                         }
+                    } else {
+                        if(EventImageUri==null){
+                            uploadEditedEventStr(EventCreatProgress);
+                        } else {
+                           uploadEditedEvent(EventImageUri,EventCreatProgress);
+                        }
+                    }
+
                 }
 
             }
@@ -176,6 +234,8 @@ public class EventDetail extends AppCompatActivity {
 
 
     private void uploadProductImage(Uri EventImageUri,ProgressDialog EventCreatProgress) {
+        EventCreatProgress.setMessage("Event Creating...");
+        EventCreatProgress.show();
         StorageReference productFileRef = storageProfilePicReference.child("Events Images/" + EventName.getText().toString());
         productFileRef.putFile(EventImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -210,8 +270,80 @@ public class EventDetail extends AppCompatActivity {
 
 
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toasty.normal(EventDetail.this, "Event Creation Failed!", R.drawable.iea_logo).show();
+                        EventCreatProgress.dismiss();
+                    }
                 });
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toasty.normal(EventDetail.this, "Event Creation Failed!", R.drawable.iea_logo).show();
+                EventCreatProgress.dismiss();
+            }
+        });
+    }
+
+    public void uploadEditedEvent(Uri eventImageUri,ProgressDialog dialog){
+        dialog.setMessage("Event updating...");
+        dialog.show();
+        StorageReference productFileRef = storageProfilePicReference.child("Events Images/" + EventName.getText().toString());
+        productFileRef.putFile(eventImageUri).addOnSuccessListener(s->{
+           productFileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+               @Override
+               public void onSuccess(Uri uri) {
+                   HashMap<String,Object> editedMap = new HashMap<>();
+                   editedMap.put("date",nullYearTV.getText().toString());
+                   editedMap.put("title",EventName.getText().toString());
+                   editedMap.put("location",EventLocation.getText().toString());
+                   editedMap.put("description",EventDescription.getText().toString());
+                   editedMap.put("weekday",EventWeekDay.getText().toString());
+                   editedMap.put("time",EventTime.getText().toString());
+                   editedMap.put("imgUrl",uri.toString());
+                   EventReference.child(key).updateChildren(editedMap).addOnSuccessListener(s->{
+                       Toasty.normal(EventDetail.this, "Event Updated", R.drawable.iea_logo).show();
+                       dialog.dismiss();
+                       if(!EventName.getText().toString().equals(editNameStr)){
+                           StorageReference oldProductRef = storageProfilePicReference.child("Events Images/" + editNameStr);
+                           oldProductRef.delete();
+                       }
+
+                   }).addOnFailureListener(f->{
+                       Toasty.normal(EventDetail.this, "Event Updation Failed!", R.drawable.iea_logo).show();
+                       dialog.dismiss();
+                   });
+
+               }
+           }).addOnFailureListener(f->{
+               Toasty.normal(EventDetail.this, "Event Updation Failed!", R.drawable.iea_logo).show();
+               dialog.dismiss();
+           });
+
+        }).addOnFailureListener(f->{
+            Toasty.normal(EventDetail.this, "Event Updation Failed!", R.drawable.iea_logo).show();
+            dialog.dismiss();
+        });
+    }
+
+    public void uploadEditedEventStr(ProgressDialog dialog){
+        dialog.setMessage("Event updating...");
+        dialog.show();
+        HashMap<String,Object> editedMap = new HashMap<>();
+        editedMap.put("date",nullYearTV.getText().toString());
+        editedMap.put("title",EventName.getText().toString());
+        editedMap.put("location",EventLocation.getText().toString());
+        editedMap.put("description",EventDescription.getText().toString());
+        editedMap.put("weekday",EventWeekDay.getText().toString());
+        editedMap.put("time",EventTime.getText().toString());
+        EventReference.child(key).updateChildren(editedMap).addOnSuccessListener(s->{
+            Toasty.normal(EventDetail.this, "Event Updated", R.drawable.iea_logo).show();
+            dialog.dismiss();
+        }).addOnFailureListener(f->{
+            Toasty.normal(EventDetail.this, "Event Updation Failed!", R.drawable.iea_logo).show();
+            dialog.dismiss();
         });
     }
 
@@ -329,5 +461,34 @@ public class EventDetail extends AppCompatActivity {
             }
         }
         return Time.toString();
+    }
+
+    static Vector<String> splitStrings(String str, char dl)
+    {
+        String word = "";
+
+        int num = 0;
+
+        str = str + dl;
+
+        int l = str.length();
+
+        Vector<String> substr_list = new Vector<String>();
+        for (int i = 0; i < l; i++)
+        {
+            if (str.charAt(i) != dl)
+            {
+                word = word + str.charAt(i);
+            }
+            else
+            {
+                if ((int) word.length() != 0)
+                {
+                    substr_list.add(word);
+                }
+                word = "";
+            }
+        }
+        return substr_list;
     }
 }

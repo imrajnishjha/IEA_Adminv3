@@ -63,11 +63,12 @@ public class EventListAdapter extends FirebaseRecyclerAdapter<EventDetailModel,E
                     .error(R.drawable.iea_logo)
                     .into(holder.eventImg);
 
-//            holder.EventListView.setOnClickListener(view -> {
-//                Intent intent = new Intent(view.getContext(), PastEventDetails.class);
-//                intent.putExtra("EventItemKey", getRef(position).getKey());
-//                view.getContext().startActivity(intent);
-//            });
+            holder.EventListView.setOnClickListener(view -> {
+                Intent intent = new Intent(view.getContext(), EventDetail.class);
+                intent.putExtra("EventItemKey", getRef(position).getKey());
+                intent.putExtra("edit","1");
+                view.getContext().startActivity(intent);
+            });
         }
 
     }

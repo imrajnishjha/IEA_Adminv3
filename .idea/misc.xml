@@ -98,9 +98,12 @@
         <entry key="..\:/Users/Administrator/Downloads/IEA_Admin/IEA_Admin/app/src/main/res/layout/confirmation_popup.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/drawable/ic_calendar_month_24.xml" value="0.1455" />
         <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/drawable/ic_clock_24.xml" value="0.1455" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_event_detail.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_event_detail_edit.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_event_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_explore_iea.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_explore_menu.xml" value="0.22" />
+        <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_grievance_detail.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_member_approval.xml" value="0.25" />
         <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_member_approval_detail.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Administrator/StudioProjects/IEA_Adminv3/app/src/main/res/layout/activity_member_notification_detail.xml" value="0.20416666666666666" />

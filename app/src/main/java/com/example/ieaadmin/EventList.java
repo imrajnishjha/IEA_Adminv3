@@ -51,7 +51,7 @@ public class EventList extends AppCompatActivity {
         scheduleEventRV.setAdapter(eventListAdapter);
         pastEventListAdapter = new PastEventListAdapter(pastOptions);
         pastEventRV.setAdapter(pastEventListAdapter);
-        newEventICon.setOnClickListener(view -> startActivity(new Intent(EventList.this, EventDetail.class)));
+        newEventICon.setOnClickListener(view -> startActivity(new Intent(EventList.this, EventDetail.class).putExtra("edit","0")));
 
     }
 
