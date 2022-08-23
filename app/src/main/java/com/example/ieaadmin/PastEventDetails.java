@@ -96,7 +96,6 @@ public class PastEventDetails extends AppCompatActivity {
                             .placeholder(R.drawable.iea_logo)
                             .into(eventDetailImg);
                 }
-
             }
 
             @Override

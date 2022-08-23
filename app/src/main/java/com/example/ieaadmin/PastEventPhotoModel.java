@@ -1,20 +1,20 @@
 package com.example.ieaadmin;
 
 public class PastEventPhotoModel {
-    String imageUri;
+    String image_uri;
 
     public PastEventPhotoModel() {
     }
 
-    public PastEventPhotoModel(String imageUri) {
-        this.imageUri = imageUri;
+    public PastEventPhotoModel(String image_uri) {
+        this.image_uri = image_uri;
     }
 
-    public String getImageUri() {
-        return imageUri;
+    public String getImage_uri() {
+        return image_uri;
     }
 
-    public void setImageUri(String imageUri) {
-        this.imageUri = imageUri;
+    public void setImage_uri(String image_uri) {
+        this.image_uri = image_uri;
     }
 }

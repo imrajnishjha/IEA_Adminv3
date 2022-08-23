@@ -26,7 +26,7 @@ public class PastEventPhotoAdapter extends FirebaseRecyclerAdapter<PastEventPhot
     @Override
     protected void onBindViewHolder(@NonNull PastEventPhotoViewHolder holder, int position, @NonNull PastEventPhotoModel model) {
         Glide.with(holder.pastEventItemIv.getContext())
-                .load(model.getImageUri())
+                .load(model.getImage_uri())
                 .error(R.drawable.iea_logo)
                 .into(holder.pastEventItemIv);
     }
