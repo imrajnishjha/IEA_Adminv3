@@ -27,6 +27,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -189,7 +190,12 @@ public class EventDetail extends AppCompatActivity {
         });
 
         eventDetailImg.setOnClickListener(view -> {
-            mGetEventImage.launch("image/*");
+
+            ImagePicker.with(this)
+                    .crop(4f,3f)//Crop image(Optional), Check Customization for more option
+                    .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                    .maxResultSize(620, 620)	//Final image resolution will be less than 1080 x 1080(Optional)
+                    .start(0);
         });
 
         EventPostBtn.setOnClickListener(new View.OnClickListener() {
@@ -352,8 +358,8 @@ public class EventDetail extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
-        } else if (resultCode == RESULT_OK && requestCode == 2) {
-            EventImageUri = UCrop.getOutput(data);
+        } else if (resultCode == RESULT_OK && requestCode == 0) {
+            EventImageUri = data.getData();
             eventDetailImg.setImageURI(EventImageUri);
         }
     }
