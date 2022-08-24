@@ -47,7 +47,10 @@ public class member_approval extends AppCompatActivity {
         memberApprovalRecyclerView.setAdapter(approvalAdapter);
 
 
-        memberApproval_babkbtn.setOnClickListener(view -> finish());
+        memberApproval_babkbtn.setOnClickListener(view -> {
+            startActivity(new Intent(member_approval.this,explore_menu.class));
+            finish();
+        });
 
         refer.setOnClickListener(view -> startActivity(new Intent(member_approval.this,Refer.class)));
 
@@ -82,5 +85,12 @@ public class member_approval extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         approvalAdapter.startListening();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(member_approval.this,explore_menu.class));
+        finish();
     }
 }

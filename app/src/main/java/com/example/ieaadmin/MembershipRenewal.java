@@ -22,7 +22,10 @@ public class MembershipRenewal extends AppCompatActivity {
         setContentView(R.layout.activity_membership_renewal);
         memberRenewal_babkbtn = findViewById(R.id.members_renewal_back_button);
         memberRenewalRecyclerView = findViewById(R.id.members_renewal_recycler_view);
-        memberRenewal_babkbtn.setOnClickListener(v -> finish());
+        memberRenewal_babkbtn.setOnClickListener(v -> {
+            startActivity(new Intent(MembershipRenewal.this,member_approval.class));
+            finish();
+        });
 
         member_approval.WrapContentLinearLayoutManager wrapContentLinearLayoutManager = new member_approval.WrapContentLinearLayoutManager(this);
         wrapContentLinearLayoutManager.setReverseLayout(true);
@@ -42,5 +45,12 @@ public class MembershipRenewal extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         renewalAdapter.startListening();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(MembershipRenewal.this,member_approval.class));
+        finish();
     }
 }

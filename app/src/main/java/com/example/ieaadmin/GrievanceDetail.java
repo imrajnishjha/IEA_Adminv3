@@ -405,4 +405,11 @@ public class GrievanceDetail extends AppCompatActivity {
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(GrievanceDetail.this,Grievance.class));
+        finish();
+    }
 }

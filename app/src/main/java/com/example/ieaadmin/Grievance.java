@@ -1,6 +1,7 @@
 package com.example.ieaadmin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -39,7 +40,10 @@ public class Grievance extends AppCompatActivity {
         grievanceAdapter = new GrievanceAdapter(options);
         grievanceRecyclerView.setAdapter(grievanceAdapter);
 
-        grievanceBackButton.setOnClickListener(view -> finish());
+        grievanceBackButton.setOnClickListener(view -> {
+            startActivity(new Intent(this,explore_menu.class));
+            finish();
+        });
     }
 
     public static class WrapContentLinearLayoutManager extends LinearLayoutManager {
@@ -69,6 +73,13 @@ public class Grievance extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         grievanceAdapter.startListening();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(Grievance.this,explore_menu.class));
+        finish();
     }
 
 }

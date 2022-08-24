@@ -31,8 +31,6 @@ public class MemberRenewalAdapter extends FirebaseRecyclerAdapter<MemberRenewalM
         holder.name.setText(model.getName());
         holder.company_name.setText(model.getCompanyname());
         holder.department.setVisibility(View.GONE);
-        String Purl="https://firebasestorage.googleapis.com/v0/b/iea-app.appspot.com/o/default_profile_picture.jpg?alt=media&token=af41ca91-9929-46b5-b9a3-e8ff6c258495";
-        Glide.with(holder.img.getContext()).load(Purl).into(holder.img);
 
         holder.memberRenewalView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), MemberRenewalDetail.class);

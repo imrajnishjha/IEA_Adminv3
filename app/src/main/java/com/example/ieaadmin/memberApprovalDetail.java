@@ -97,7 +97,10 @@ public class memberApprovalDetail extends AppCompatActivity {
         approveBtn = findViewById(R.id.approval_btn);
         rejectionReasonbtn = findViewById(R.id.rejectionReason_btn);
 
-        approvalbackbtn.setOnClickListener(view -> finish());
+        approvalbackbtn.setOnClickListener(view -> {
+            startActivity(new Intent(memberApprovalDetail.this,member_approval.class));
+            finish();
+        });
 
         String memberApprovalKey = getIntent().getStringExtra("memberApprovalKey");
 
@@ -352,6 +355,13 @@ public class memberApprovalDetail extends AppCompatActivity {
             randomPass.append(randomChar2);
         }
         return randomPass.toString();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(memberApprovalDetail.this,member_approval.class));
+        finish();
     }
 
 }

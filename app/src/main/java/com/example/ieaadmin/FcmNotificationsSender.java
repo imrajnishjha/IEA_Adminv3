@@ -24,7 +24,7 @@ public class FcmNotificationsSender  {
     String body;
     Context mContext;
     Activity mActivity;
-    int number;
+    String activity;
 
     private RequestQueue requestQueue;
     private final String postUrl = "https://fcm.googleapis.com/fcm/send";
@@ -38,13 +38,13 @@ public class FcmNotificationsSender  {
         this.mActivity = mActivity;
     }
 
-    public FcmNotificationsSender(String userFcmToken, String title, String body, Context mContext, Activity mActivity, int number) {
+    public FcmNotificationsSender(String userFcmToken, String title, String body, Context mContext, Activity mActivity, String activity) {
         this.userFcmToken = userFcmToken;
         this.title = title;
         this.body = body;
         this.mContext = mContext;
         this.mActivity = mActivity;
-        this.number = number;
+        this.activity = activity;
     }
 
     public void SendNotifications() {
@@ -61,6 +61,9 @@ public class FcmNotificationsSender  {
 //            notiObject.put("number", String.valueOf(number));
 
             mainObj.put("notification", notiObject);
+            JSONObject userData = new JSONObject();
+            userData.put("activity",activity);
+            mainObj.put("data",userData);
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, postUrl, mainObj, new Response.Listener<JSONObject>() {
                 @Override
