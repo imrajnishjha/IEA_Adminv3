@@ -34,9 +34,6 @@ public class member_approvalAdapter extends FirebaseRecyclerAdapter<UserRegistra
         holder.company_name.setText(model.getCompanyName());
         holder.department.setText(model.getDepartment());
 
-        String Purl="https://firebasestorage.googleapis.com/v0/b/iea-app.appspot.com/o/default_profile_picture.jpg?alt=media&token=af41ca91-9929-46b5-b9a3-e8ff6c258495";
-        Glide.with(holder.img.getContext()).load(Purl).into(holder.img);
-
         holder.memberApprovalView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), memberApprovalDetail.class);
             intent.putExtra("memberApprovalKey", getRef(position).getKey());
