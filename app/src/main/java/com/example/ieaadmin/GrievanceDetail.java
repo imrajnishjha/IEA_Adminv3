@@ -239,7 +239,7 @@ public class GrievanceDetail extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String grievanceUserToken = Objects.requireNonNull(snapshot.child("user_token").getValue()).toString();
-                        FcmNotificationsSender grievanceNotificationSender = new FcmNotificationsSender(grievanceUserToken, "IEA Grievance Update", "Your grievance is " + grievanceStatusField.getText().toString(), getApplicationContext(), GrievanceDetail.this);
+                        FcmNotificationsSender grievanceNotificationSender = new FcmNotificationsSender(grievanceUserToken, "IEA Grievance Update", "Your grievance is " + grievanceStatusField.getText().toString(), getApplicationContext(), GrievanceDetail.this,"grievance",grievanceItemKey);
                         grievanceNotificationSender.SendNotifications();
 
                     }
