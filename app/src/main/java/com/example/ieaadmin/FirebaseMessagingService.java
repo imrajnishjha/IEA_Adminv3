@@ -56,7 +56,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         }else if(Objects.requireNonNull(remoteMessage.getData().get("activity")).matches("memberrenewal")){
             resultIntent = new Intent(this,MembershipRenewal.class);
         } else{
-            resultIntent = new Intent(this, NotificationBroadcast.class);
+            resultIntent = new Intent(this, MembersNotification.class);
         }
 
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);

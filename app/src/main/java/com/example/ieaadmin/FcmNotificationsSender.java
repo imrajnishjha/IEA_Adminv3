@@ -24,7 +24,7 @@ public class FcmNotificationsSender  {
     String body;
     Context mContext;
     Activity mActivity;
-    String activity;
+    String togo;
     String ownerKey;
 
     private RequestQueue requestQueue;
@@ -39,13 +39,13 @@ public class FcmNotificationsSender  {
         this.mActivity = mActivity;
     }
 
-    public FcmNotificationsSender(String userFcmToken, String title, String body, Context mContext, Activity mActivity, String activity, String ownerKey) {
+    public FcmNotificationsSender(String userFcmToken, String title, String body, Context mContext, Activity mActivity, String togo, String ownerKey) {
         this.userFcmToken = userFcmToken;
         this.title = title;
         this.body = body;
         this.mContext = mContext;
         this.mActivity = mActivity;
-        this.activity = activity;
+        this.togo = togo;
         this.ownerKey = ownerKey;
     }
 
@@ -64,7 +64,8 @@ public class FcmNotificationsSender  {
 
             mainObj.put("notification", notiObject);
             JSONObject userData = new JSONObject();
-            userData.put("activity",activity);
+            userData.put("activity",togo);
+            userData.put("ownerKey",ownerKey);
             mainObj.put("data",userData);
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, postUrl, mainObj, new Response.Listener<JSONObject>() {
