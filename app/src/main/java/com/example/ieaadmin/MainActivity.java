@@ -34,24 +34,31 @@ public class MainActivity extends AppCompatActivity {
 
     public Intent activityHandler(){
         Intent act = null;
-        if(getIntent().getExtras()!=null){
-            if(getIntent().getExtras().getString("activity").equals("grievance")){
-                act = new Intent(MainActivity.this,GrievanceDetail.class).putExtra("GrievanceItemKey",getIntent().getExtras().getString("chatKey"));
-                return act;
-            } else if(getIntent().getExtras().getString("activity").equals("memberapproval")){
-                act = new Intent(MainActivity.this,memberApprovalDetail.class).putExtra("memberApprovalKey",getIntent().getExtras().getString("ownerKey"));
-                return act;
-            } else if(getIntent().getExtras().getString("activity").equals("memberrenewal")){
-                act = new Intent(MainActivity.this,MembershipRenewal.class);
-                return act;
+        try{
+            if(getIntent().getExtras()!=null){
+                if(getIntent().getExtras().getString("activity").equals("grievance")){
+                    act = new Intent(MainActivity.this,GrievanceDetail.class).putExtra("GrievanceItemKey",getIntent().getExtras().getString("chatKey"));
+                    return act;
+                } else if(getIntent().getExtras().getString("activity").equals("memberapproval")){
+                    act = new Intent(MainActivity.this,memberApprovalDetail.class).putExtra("memberApprovalKey",getIntent().getExtras().getString("ownerKey"));
+                    return act;
+                } else if(getIntent().getExtras().getString("activity").equals("memberrenewal")){
+                    act = new Intent(MainActivity.this,MembershipRenewal.class);
+                    return act;
+                } else {
+                    act = new Intent(MainActivity.this, MembersNotification.class);
+                    return act;
+                }
             } else {
-                act = new Intent(MainActivity.this, MembersNotification.class);
+                act = new Intent(MainActivity.this, LandingPage.class);
                 return act;
             }
-        } else {
+        } catch (Exception e){
+            e.printStackTrace();
             act = new Intent(MainActivity.this, LandingPage.class);
             return act;
         }
+
     }
 
 }
